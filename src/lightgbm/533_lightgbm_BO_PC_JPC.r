@@ -137,8 +137,7 @@ EstimarGanancia_lightgbm  <- function( x )
 #Aqui empieza el programa
 
 #Aqui se debe poner la carpeta de la computadora local
-setwd("D:\\gdrive\\Austral2022R\\")   #Establezco el Working Directory
-
+setwd("C:\\Users\\Juampy\\Documents\\01 Universidad Austral 2022\\01_LabImp01\\RStudioWork\\")
 #cargo el dataset donde voy a entrenar el modelo
 dataset  <- fread("./datasets/paquete_premium_202011.csv")
 
