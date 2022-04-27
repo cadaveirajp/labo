@@ -143,9 +143,12 @@ dataset  <- fread("./datasets/paquete_premium_202011.csv")
 
 #creo la carpeta donde va el experimento
 # HT  representa  Hiperparameter Tuning
-dir.create( "./labo/exp/",  showWarnings = FALSE ) 
-dir.create( "./labo/exp/HT5330/", showWarnings = FALSE )
-setwd("D:\\gdrive\\Austral2022R\\labo\\exp\\HT5330\\")   #Establezco el Working Directory DEL EXPERIMENTO
+dir.create( "./labo/",  showWarnings = FALSE ) 
+setwd("C:\\Users\\Juampy\\Documents\\01 Universidad Austral 2022\\01_LabImp01\\RStudioWork\\labo\\")
+dir.create( "./exp/", showWarnings = FALSE )
+setwd("C:\\Users\\Juampy\\Documents\\01 Universidad Austral 2022\\01_LabImp01\\RStudioWork\\labo\\exp\\")
+dir.create( "./HT5330/", showWarnings = FALSE )
+setwd("C:\\Users\\Juampy\\Documents\\01 Universidad Austral 2022\\01_LabImp01\\RStudioWork\\labo\\exp\\HT5330\\")   #Establezco el Working Directory DEL EXPERIMENTO
 
 
 #en estos archivos quedan los resultados
