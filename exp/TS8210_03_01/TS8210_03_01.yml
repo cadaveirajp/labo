@@ -30,7 +30,7 @@ param:
       desde:  202001
       hasta:  202009
     excluir: [ 202006 ]
-     undersampling: [ ]  #ATENCION  sin undersampling
+    undersampling: [ ]  #ATENCION  sin undersampling
 
   #donde valido
   validate:
