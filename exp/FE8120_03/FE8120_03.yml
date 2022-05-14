@@ -5,7 +5,7 @@ googlecloud:
 
 
 experiment:
-  script: "src/completo/z912_FE_desborde.r"
+  script: "src/completo/z912_FE_desborde_02.r"
   restart: FALSE
   name: "exp"
   requires: [ "DT0001" ]
@@ -17,7 +17,7 @@ param:
   corregir: TRUE    #se se corrige los campos/foto_mes  MALOS
   variablesdrift: [] #variables que se eliminan porque estan mal en el futuro
   
-  variablesmanuales: FALSE
+  variablesmanuales: TRUE
 
   acumulavars: FALSE   #a lo nuevo lo va aplicando
 
@@ -28,14 +28,13 @@ param:
     minimo:    FALSE
     maximo:    FALSE
     promedio:  TRUE
-    ratioavg:  FALSE
+    ratioavg:  TRUE
     ratiomax:  FALSE
 
-
   #lags y sus deltas , 6 posiciones
-  lag:   [ TRUE, FALSE, FALSE, FALSE, FALSE, FALSE ]
-  delta: [ TRUE, FALSE, FALSE, FALSE, FALSE, FALSE ]
-  canaritosratio: [ 0, 0, 0, 0, 0, 0 ]
+  lag:   [ TRUE, TRUE, TRUE, FALSE, FALSE, FALSE ]
+  delta: [ TRUE, TRUE, TRUE, FALSE, FALSE, FALSE ]
+  canaritosratio: [ 0.3, 0.3, 0.3, 0, 0, 0 ]
 
   tony:  FALSE
 
