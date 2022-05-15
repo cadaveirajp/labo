@@ -3,7 +3,7 @@
 googlecloud:
   RAM:   128
   vCPU:    8
-  disk:  256 _  
+  disk:  256  
 
 
 experiment:
