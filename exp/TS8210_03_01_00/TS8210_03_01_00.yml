@@ -8,7 +8,7 @@ experiment:
   script: "src/completo/z921_TS_generico.r"
   restart: FALSE
   name: "exp"
-  requires: [ "FE8120_03_01" ]
+  requires: [ "FE8220_03_01" ]
 
 
 param:
