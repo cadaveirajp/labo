@@ -26,25 +26,12 @@ dataset12  <- fread( "./datasets/ST4620/cluster_de_bajas_12meses.txt", stringsAs
 dataset6 <- dataset12 %>%
   filter(pos < 6)
 
-#los campos que arbitrariamente decido considerar para el clustering
-#por supuesto, se pueden cambiar
-#campos_buenos  <- c( "ctrx_quarter", "cpayroll_trx", "mcaja_ahorro", "mtarjeta_visa_consumo", "ctarjeta_visa_trx",
-#                     "mcuentas_saldo", "mrentabilidad_annual", "mprestamos_personales", "mactivos_margen", "mpayroll",
-#                     "Visa_mpagominimo", "Master_fechaalta", "cliente_edad", "chomebanking_trx", "Visa_msaldopesos",
-#                     "Visa_Fvencimiento", "mrentabilidad", "Visa_msaldototal", "Master_Fvencimiento", "mcuenta_corriente",
-#                     "Visa_mpagospesos", "Visa_fechaalta", "mcomisiones_mantenimiento", "Visa_mfinanciacion_limite",
-#                     "mtransferencias_recibidas", "cliente_antiguedad", "Visa_mconsumospesos", "Master_mfinanciacion_limite",
-#                    "mcaja_ahorro_dolares", "cproductos", "mcomisiones_otras", "thomebanking", "mcuenta_debitos_automaticos",
-#                     "mcomisiones", "Visa_cconsumos", "ccomisiones_otras", "Master_status", "mtransferencias_emitidas",
-#                     "mpagomiscuentas")
 
-
-
-dataset$cluster2 <- as.factor(dataset$cluster2)
-dataset$foto_mes <- as.factor(dataset$foto_mes)
+dataset6$cluster2 <- as.factor(dataset6$cluster2)
+dataset6$foto_mes <- as.factor(dataset6$foto_mes)
 
 # grafico base
-ggplot(dataset12) +
+ggplot(dataset6) +
   aes(x = pos, fill = factor(cluster2)) +
   geom_density(alpha = 0.3) +
   labs(title = "Gráfico de densidad", 
@@ -54,82 +41,47 @@ ggplot(dataset12) +
        fill = "Segemento") +
   theme(legend.position = "bottom")
 
-# grafico base
-ggplot(dataset12) +
-  aes(x = pos, fill = factor(cluster2)) +
-  geom_density(alpha = 0.8) +
-  labs(title = "Gráfico de densidad", 
-       subtitle = "Millaje en ciudad según número de cilindros",
-       caption = "Fuente: datos mpg",
-       x = "Posición", y = "Densidad",
-       fill = "Segemento") +
-  theme(legend.position = "bottom")
 
-
-dataset12 %>% 
+dataset6 %>% 
   ggplot(aes(x = pos , y=mtarjeta_visa_consumo, fill = factor(cluster2))) +
   geom_boxplot() +
   geom_jitter(width=0.1,alpha=0.2) +
-  xlab("Year")+ 
-  facet_wrap(~foto_mes,ncol = 4) +
+  xlab("Month")+ 
+  facet_wrap(~pos,ncol = 3) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-
-library(gganimate)
-
-library(gapminder)
-library(gifski)
-
-ggplot(dataset12, aes(pos, ctrx_quarter)) +
+ggplot(dataset6, aes(pos, ctrx_quarter)) +
   geom_point() +
   facet_wrap(vars(cluster2))
 
-ggplot(dataset12, aes(pos, mpayroll)) +
+ggplot(dataset6, aes(pos, mpayroll)) +
   geom_point() +
   facet_wrap(vars(cluster2))
   
-ggplot(dataset12, aes(pos, ctarjeta_visa_trx)) +
+ggplot(dataset6, aes(pos, ctarjeta_visa_trx)) +
   geom_point() +
   facet_wrap(vars(cluster2))
 
 
-ggplot(dataset12, aes(pos, mtarjeta_visa_consumo)) +
+ggplot(dataset6, aes(pos, mtarjeta_visa_consumo)) +
   geom_point() +
   facet_wrap(vars(cluster2))
-     labs(title = 'Pos: {frame_time}', 
-     x = 'ctrx_quarter', 
-     y = 'mtarjeta_visa_consumo') +
+
+# animated graphic
        
-ggplot(dataset12, aes(pos, mtarjeta_visa_consumo)) +
-  geom_point() +
-  facet_wrap(vars(cluster2))
-     labs(title = 'Pos: {frame_time}', 
-     x = 'ctrx_quarter', 
-     y = 'mtarjeta_visa_consumo') +
-       
+library(gganimate)
+library(gapminder)
+library(gifski)
      
        
-       
-         
-ggplot(dataset12, aes(pos, mpayroll)) +
-     geom_point() +
-     facet_wrap(vars(cluster2))
-     labs(title = 'Pos: {frame_time}', 
-          x = 'Cluster', 
-          y = 'mpayroll') +      
-       
-       
-       
 
-summary(mpg)
-mpg
-Grafico <- ggplot(data = dataset12) +
+Grafico <- ggplot(data = dataset6) +
   aes(x = ctrx_quarter, y = mtarjeta_visa_consumo, colour = pos) +
   geom_point(alpha = 0.7, show.legend = FALSE) +
   scale_colour_manual(values = country_colors) +
   scale_size(range = c(2, 12)) +
   facet_wrap(vars(pos)) +
-  labs(title = 'Pos: {frame_time}', 
+  labs(title = 'Pos: {pos}', 
        x = 'ctrx_quarter', 
        y = 'mtarjeta_visa_consumo') +
   theme_bw() +
@@ -141,7 +93,7 @@ Grafico
 #Genero la animación a partir del ggplot
 Animacion <- animate(Grafico, 
                      renderer = gifski_renderer(), 
-                     nframes = 10) #Cantidad de fotogramas
+                     nframes = 5) #Cantidad de fotogramas
 
 #Guardo la animación en un archivo formato gif
 anim_save(filename = "Gapminder.gif",

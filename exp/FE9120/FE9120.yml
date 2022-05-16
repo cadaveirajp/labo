@@ -23,15 +23,15 @@ param:
 
   tendenciaYmuchomas: 
     correr: TRUE #Great power comes with great responsability
-    ventana: 6
-    tendencia: TRUE
+    ventana: 6 # meses
+    tendencia: TRUE #pendiente
     minimo:    FALSE
     maximo:    FALSE
     promedio:  FALSE
     ratioavg:  FALSE
     ratiomax:  FALSE
 
-
+ 
   #lags y sus deltas , 6 posiciones
   lag:   [ TRUE, TRUE, FALSE, FALSE, FALSE, FALSE ]
   delta: [ TRUE, TRUE, FALSE, FALSE, FALSE, FALSE ]
