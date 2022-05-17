@@ -28,7 +28,8 @@ dataset6 <- dataset12 %>%
 
 dataset6$cluster2 <- as.factor(dataset6$cluster2)
 dataset6$foto_mes <- as.factor(dataset6$foto_mes)
-
+dataset6$pos2 <- as.factor(dataset6$pos)
+dataset6$pos3 <- as.numeric(dataset6$pos)
 # animated graphic
 
 library(gganimate)
@@ -36,28 +37,47 @@ library(gapminder)
 library(gifski)
 
 Grafico <- ggplot(data = dataset6) +
-  aes(x = ctrx_quarter, y = mtarjeta_visa_consumo, colour = pos) +
+  aes(x = ctrx_quarter, y = mtarjeta_visa_consumo, colour = pos2) +
   geom_point(alpha = 0.7, show.legend = FALSE) +
   scale_colour_manual(values = country_colors) +
   scale_size(range = c(2, 12)) +
-  facet_wrap(vars(pos)) +
-  labs(title = 'Pos: {pos}', 
+  facet_wrap(vars(pos3)) +
+  labs(title = 'Pos: {pos3}', 
        x = 'ctrx_quarter', 
        y = 'mtarjeta_visa_consumo') +
   theme_bw() +
   theme(axis.title = element_text(face = "bold")) +
-  transition_time(pos) + #Variable de Transición
+  transition_time(pos3) + #Variable de Transición
   ease_aes('linear') #Tipo de Transición
 
 Grafico
 #Genero la animación a partir del ggplot
 Animacion <- animate(Grafico, 
                      renderer = gifski_renderer(), 
-                     nframes = 5) #Cantidad de fotogramas
+                     nframes = 4) #Cantidad de fotogramas
 
 #Guardo la animación en un archivo formato gif
 anim_save(filename = "Gapminder.gif",
           animation = Animacion)
+
+## GG plot animado version 2
+ 
+# Libraries
+library(ggplot2)
+library(dplyr)
+
+# The dataset is provided in the gapminder library
+library(gapminder)
+data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
+
+# Most basic bubble plot
+ggplot(data, aes(x=gdpPercap, y=lifeExp, size = pop)) +
+  geom_point(alpha=0.7)
+
+ggplot(dataset, aes(x=gdpPercap, y=lifeExp, size = pop)) +
+  geom_point(alpha=0.7)
+
+
 
 # grafico base
 ggplot(dataset6) +
