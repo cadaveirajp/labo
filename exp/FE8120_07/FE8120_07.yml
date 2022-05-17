@@ -12,7 +12,7 @@ experiment:
 
 
 param:
-  dummiesNA: FALSE
+  dummiesNA: TRUE
 
   corregir: TRUE    #se se corrige los campos/foto_mes  MALOS
   variablesdrift: [] #variables que se eliminan porque estan mal en el futuro
@@ -28,12 +28,12 @@ param:
     minimo:    FALSE
     maximo:    FALSE
     promedio:  TRUE
-    ratioavg:  FALSE
+    ratioavg:  TRUE
     ratiomax:  FALSE
 
   #lags y sus deltas , 6 posiciones
-  lag:   [ TRUE, TRUE, FALSE, FALSE, FALSE, FALSE ]
-  delta: [ TRUE, TRUE, FALSE, FALSE, FALSE, FALSE ]
+  lag:   [ TRUE, FALSE, FALSE, FALSE, FALSE, FALSE ]
+  delta: [ TRUE, FALSE, FALSE, FALSE, FALSE, FALSE ]
   canaritosratio: [ 0.3, 0.1, 0.0, 0, 0, 0 ]
 
   tony:  FALSE
