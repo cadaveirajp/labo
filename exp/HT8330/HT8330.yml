@@ -17,7 +17,7 @@ experiment:
 
 param:
   algoritmo:  "lightgbm"
-  semilla: 102191
+  semilla: 101963
   
   semillerio: 10  #cantidad de modelos que se promedian cambiando unicamente la semilla, en cada vuelta de la BO
                   # el lightGBM común es como tener un 1 aqui,  aumenta el tiempo de corrida linealmente
