@@ -26,15 +26,153 @@ dataset12  <- fread( "./datasets/ST4620/cluster_de_bajas_12meses.txt", stringsAs
 dataset6 <- dataset12 %>%
   filter(pos < 6)
 
+
 dataset6$cluster2 <- as.factor(dataset6$cluster2)
 dataset6$foto_mes <- as.factor(dataset6$foto_mes)
 dataset6$pos2 <- as.factor(dataset6$pos)
-dataset6$pos3 <- as.numeric(dataset6$pos)
+
+# dataset6$pos3 <- as.numeric(dataset6$pos)
+
+#convert pos3 as characther date
+dataset6$pos3 <- as.character(dataset6$pos)
+
+dataset6[pos2 == 1, pos3 := "2021-10-01"]
+dataset6[pos2 == 2, pos3 := "2021-09-01"]
+dataset6[pos2 == 3, pos3 := "2021-08-01"]
+dataset6[pos2 == 4, pos3 := "2021-07-01"]
+dataset6[pos2 == 5, pos3 := "2021-06-01"]
+
+dataset6$pos3 <- as.Date(dataset6$pos3)
+
+
+
+
+
+
+
+
+
+
+dataset6$pos3 [1-6]
+
+
+# dataset6 %>% 
+#  mutate(pos4 = case_when(pos3 == 1~ 2021-10-01,
+#                          pos3 == 2~ 2021-09-01,
+ #                         pos3 == 3~ 2021-08-01,
+   #                       pos3 == 4~ 2021-07-01,
+  #                        pos3 == 5~ 2021-06-01,))
+
+
+#dataset6$pos4 [1]
+
+
+#dataset6 %>% 
+ # mutate(pos3 = if_else(pos2 == 1, "2021-10-01",
+#               if_else(pos2 == 2, "2021-09-01", 
+#               if_else(pos2 == 3, "2021-08-01",  
+#               if_else(pos2 == 4, "2021-07-01", "2021-06-01"))))) %>% 
+ # as_tibble()
+
+#ISOdate(year = 2021, month = dataset6$pos, day = 1)
+
+# as.Date(ISOdate(year = yr, month = mo, day = day))
+
+
+
+
+# dataset6$posdate <- as.Date(as.character(dataset6$posdate),          # as.Date & as.character functions
+#                   format = "%Y%m%d")
+  
+
+
+
+
+
+
 # animated graphic
 
 library(gganimate)
 library(gapminder)
 library(gifski)
+
+### time series 
+
+# Libraries
+library(ggplot2)
+library(dplyr)
+library(plotly)
+library(hrbrthemes)
+
+# Time series
+
+
+# my date set
+#library(plyr)
+#group.means<-ddply(dataset6 ,c("cluster2","ctrx_quarter"),summarise,mean=mean(ctrx_quarter))
+#group.means
+
+X10 <- aggregate(x=dataset6$ctrx_quarter,
+          by=list(dataset6$cluster2,dataset6$pos3),
+          FUN=mean)
+names(X10) <- c("cluster2" ,"ctrx_quarter")
+
+
+X1 <- dataset[  , mean(ctrx_quarter),  cluster2, ]  #media de la variable  ctrx_quarter
+names(X1) <- c("cluster2" ,"ctrx_quarter")
+
+# tapply(dataset6,cycle(dataset6),mean)
+
+
+# Usual area chart
+p <- dataset6 %>%
+  ggplot( aes(x=pos3, y=mcuentas_saldo)) +
+  geom_area(fill="#69b3a2", alpha=0.5) +
+  geom_line(color="#69b3a2") +
+  ylab("Cuentas saldo ($)") +
+  theme_ipsum()
+
+# Turn it interactive with ggplotly
+p <- ggplotly(p)
+p
+
+
+
+
+
+
+# Using Small multiple DEnsity plot
+
+
+library(ggplot2)
+library(hrbrthemes)
+library(dplyr)
+library(tidyr)
+library(viridis)
+
+ggplot(data=diamonds, aes(x=price, group=cut, fill=cut)) +
+  geom_density(adjust=1.5) +
+  theme_ipsum() +
+  facet_wrap(~cut) +
+  theme(
+    legend.position="none",
+    panel.spacing = unit(0.1, "lines"),
+    axis.ticks.x=element_blank()
+  )
+
+ggplot(data=dataset6, aes(x=mcuentas_saldo, group=cluster2, fill=cluster2)) +
+  geom_density(adjust=20) +
+  theme_ipsum() +
+  facet_wrap(~cluster2) +
+  theme(
+    legend.position="none",
+    panel.spacing = unit(1, "lines"),
+    axis.ticks.x=element_blank()
+  )
+
+# Grafino animado, no funciona
+
+
 
 Grafico <- ggplot(data = dataset6) +
   aes(x = ctrx_quarter, y = mtarjeta_visa_consumo, colour = pos2) +
